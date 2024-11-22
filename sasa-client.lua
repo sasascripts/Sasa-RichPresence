@@ -22,22 +22,15 @@ function UpdateRichPresence()
     local state = Config.State:gsub("%%{count}", tostring(playerCount))
     SetRichPresence(details .. " | " .. state)
 
-    -- Debug information for the console
-    print("[Rich Presence] Details: ", details)
-    print("[Rich Presence] State: ", state)
-
     -- Setup buttons
     if Config.Buttons and #Config.Buttons > 0 then
         for i, button in ipairs(Config.Buttons) do
             if i <= 2 then
                 SetDiscordRichPresenceAction(i - 1, button.label, button.url)
-                print(string.format("[Rich Presence] Button %d: %s -> %s", i, button.label, button.url))
             else
-                print("[Rich Presence] Too many buttons, ignoring:", button.label)
             end
         end
     else
-        print("[Rich Presence] No buttons configured.")
     end
 end
 
