@@ -15,5 +15,17 @@ Config.SmallText = 'Playing on FiveM' -- Hover text for the small icon
 Config.Details = 'Exploring StateRP'
 Config.State = 'Having fun with %{count} players' -- %{count} will be replaced with the current player count
 
+-- Buttons (up to 2 buttons)
+Config.Buttons = {
+    {
+        label = 'Join our Discord', -- Text on the button
+        url = 'https://discord.gg/yourserver' -- Link to your Discord server
+    },
+    {
+        label = 'Visit our Website', -- Text on the button
+        url = 'https://yourwebsite.com' -- Link to your website or any page
+    }
+}
+
 -- Update interval in milliseconds (default: 15 seconds)
 Config.UpdateInterval = 15000
