@@ -8,33 +8,39 @@ end
 
 -- Function to update Discord Rich Presence
 function UpdateRichPresence()
-    -- Set the Discord Application ID
+    -- Set Discord Application ID
     SetDiscordAppId(Config.AppID)
 
-    -- Set the large icon and hover text
+    -- Set the large and small icons
     SetDiscordRichPresenceAsset(Config.LargeImage)
     SetDiscordRichPresenceAssetText(Config.LargeText)
-
-    -- Set the small icon and hover text
     SetDiscordRichPresenceAssetSmall(Config.SmallImage)
     SetDiscordRichPresenceAssetSmallText(Config.SmallText)
 
-    -- Update text details and state
+    -- Update details and state
     local details = Config.Details
-    local state = Config.State:gsub("%%{count}", tostring(playerCount)) -- Replace %{count} with player count
-    SetRichPresence(details .. ' | ' .. state)
+    local state = Config.State:gsub("%%{count}", tostring(playerCount))
+    SetRichPresence(details .. " | " .. state)
 
-    -- Add buttons if configured
+    -- Debug information for the console
+    print("[Rich Presence] Details: ", details)
+    print("[Rich Presence] State: ", state)
+
+    -- Setup buttons
     if Config.Buttons and #Config.Buttons > 0 then
         for i, button in ipairs(Config.Buttons) do
-            if i == 1 then
-                SetDiscordRichPresenceAction(0, button.label, button.url)
-            elseif i == 2 then
-                SetDiscordRichPresenceAction(1, button.label, button.url)
+            if i <= 2 then
+                SetDiscordRichPresenceAction(i - 1, button.label, button.url)
+                print(string.format("[Rich Presence] Button %d: %s -> %s", i, button.label, button.url))
+            else
+                print("[Rich Presence] Too many buttons, ignoring:", button.label)
             end
         end
+    else
+        print("[Rich Presence] No buttons configured.")
     end
 end
+
 
 
 -- Main loop to update Rich Presence periodically
